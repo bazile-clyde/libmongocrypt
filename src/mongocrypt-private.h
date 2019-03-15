@@ -82,6 +82,7 @@ _bson_error_to_mongocrypt_error (const bson_error_t *bson_error,
                                  mongocrypt_status_t *status);
 
 
+// possible starting point for method
 struct _mongocrypt_t {
    mongoc_client_pool_t *mongocryptd_pool;
    mongocrypt_opts_t *opts;
