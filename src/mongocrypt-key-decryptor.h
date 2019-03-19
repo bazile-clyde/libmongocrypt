@@ -21,6 +21,7 @@
 #include "mongocrypt-export.h"
 #include "mongocrypt-opts.h"
 #include "mongocrypt-status.h"
+#include "mongocrypt-compat.h"
 
 /* Represents a request/response parser for the decryption of a key material. */
 typedef struct _mongocrypt_key_decryptor_t mongocrypt_key_decryptor_t;

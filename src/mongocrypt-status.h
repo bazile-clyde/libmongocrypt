@@ -20,6 +20,7 @@
 #include <stdint.h>
 
 #include "mongocrypt-export.h"
+#include "mongocrypt-compat.h"
 
 typedef enum {
    MONGOCRYPT_ERROR_TYPE_NONE = 0,

@@ -26,6 +26,7 @@ set (MONGOCRYPT_PUBLIC_HEADERS
    src/mongocrypt-decryptor.h
    src/mongocrypt-encryptor.h
    src/mongocrypt-key-broker.h
+   src/mongocrypt-key-encryptor.h
    src/mongocrypt-key-decryptor.h
    src/mongocrypt-opts.h
    src/mongocrypt-status.h
@@ -45,7 +46,9 @@ set (MONGOCRYPT_SOURCES
    src/mongocrypt-decryptor.c
    src/mongocrypt-encryptor.c
    src/mongocrypt-key-broker.c
+   src/mongocrypt-key-encryptor.c
    src/mongocrypt-key-decryptor.c
+   src/mongocrypt-key-handler.c
    src/mongocrypt-key-cache.c
    src/mongocrypt-log.c
    src/mongocrypt-openssl.c
@@ -128,6 +131,7 @@ set (TEST_MONGOCRYPT_SOURCES
    test/test-mongocrypt-data-key.c
    test/test-mongocrypt-encryptor.c
    test/test-mongocrypt-decryptor.c
+   test/test-mongocrypt-key-handler.c
    test/test-mongocrypt-log.c
    test/test-mongocrypt-ciphertext.c
 )

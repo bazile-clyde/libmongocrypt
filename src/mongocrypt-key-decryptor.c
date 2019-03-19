@@ -20,26 +20,14 @@
 #include "mongocrypt-buffer-private.h"
 #include "mongocrypt-key-decryptor.h"
 #include "mongocrypt-key-decryptor-private.h"
+#include "mongocrypt-key-handler-private.h"
 
 void
 _mongocrypt_key_decryptor_init (mongocrypt_key_decryptor_t *kd,
                                 _mongocrypt_buffer_t *key_material,
                                 void *ctx)
 {
-   kms_request_opt_t *opt;
-   /* create the KMS request. */
-   opt = kms_request_opt_new ();
-   /* TODO: we might want to let drivers control whether or not we send
-      * Connection: close header. Unsure right now. */
-   kms_request_opt_set_connection_close (opt, true);
-   kd->req =
-      kms_decrypt_request_new (key_material->data, key_material->len, opt);
-   kd->parser = kms_response_parser_new ();
-   kd->ctx = ctx;
-
-   kd->status = mongocrypt_status_new ();
-   _mongocrypt_buffer_init (&kd->msg);
-   kms_request_opt_destroy (opt);
+   _mongocrypt_key_init (kd, key_material, ctx, NULL, MONGOCRYPT_DECRYPT);
 }
 
 mongocrypt_binary_t *

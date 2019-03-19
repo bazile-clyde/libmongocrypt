@@ -208,6 +208,7 @@ main (int argc, char **argv)
    _mongocrypt_tester_install_log (&tester);
    _mongocrypt_tester_install_data_key (&tester);
    _mongocrypt_tester_install_encryptor (&tester);
+   _mongocrypt_tester_install_key_handler (&tester);
    _mongocrypt_tester_install_ciphertext (&tester);
    _mongocrypt_tester_install_decryptor (&tester);
 

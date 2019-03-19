@@ -124,6 +124,10 @@ _mongocrypt_tester_install_decryptor (_mongocrypt_tester_t *tester);
 
 
 void
+_mongocrypt_tester_install_key_handler (_mongocrypt_tester_t *tester);
+
+
+void
 _mongocrypt_tester_install_ciphertext (_mongocrypt_tester_t *tester);
 
 
