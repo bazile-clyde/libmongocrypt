@@ -21,11 +21,21 @@
 #define MONGOCRYPT_DECRYPT 1
 
 void
-_mongocrypt_key_init (mongocrypt_key_decryptor_t *kd,
+_mongocrypt_key_handle_init (mongocrypt_key_decryptor_t *kd,
                                 _mongocrypt_buffer_t *key_material,
                                 void *ctx,
                                 const char *key_id,
                                 int flag);
 
+mongocrypt_binary_t *
+_mongocrypt_key_handle_msg (mongocrypt_key_decryptor_t *kd);
+
+int
+_mongocrypt_key_handle_bytes_needed (mongocrypt_key_decryptor_t *kd,
+                                       uint32_t max_bytes);
+
+bool
+_mongocrypt_key_handle_feed (mongocrypt_key_decryptor_t *kd,
+                               mongocrypt_binary_t *bytes);
 void
-_mongocrypt_key_handler_cleanup (mongocrypt_key_decryptor_t *kd);
+_mongocrypt_key_handle_cleanup (mongocrypt_key_decryptor_t *kd);

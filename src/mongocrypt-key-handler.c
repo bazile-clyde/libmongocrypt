@@ -20,9 +20,10 @@
 #include "mongocrypt-buffer-private.h"
 #include "mongocrypt-key-decryptor-private.h"
 #include "mongocrypt-key-handler-private.h"
+#include "mongocrypt-binary-private.h"
 
 void
-_mongocrypt_key_init (mongocrypt_key_decryptor_t *kd,
+_mongocrypt_key_handle_init (mongocrypt_key_decryptor_t *kd,
                                 _mongocrypt_buffer_t *key_material,
                                 void *ctx,
                                 const char *key_id,
@@ -49,8 +50,46 @@ _mongocrypt_key_init (mongocrypt_key_decryptor_t *kd,
    kms_request_opt_destroy (opt);
 }
 
+mongocrypt_binary_t *
+_mongocrypt_key_handle_msg (mongocrypt_key_decryptor_t *kd)
+{
+   /* TODO testing, remove? */
+   if (!kd) {
+      return NULL;
+   }
+
+   if (kd->msg.data) {
+      return _mongocrypt_buffer_to_binary (&kd->msg);
+   }
+
+   kd->msg.data = (uint8_t *) kms_request_get_signed (kd->req);
+   kd->msg.len = (uint32_t) strlen ((char *) kd->msg.data);
+   kd->msg.owned = true;
+   return _mongocrypt_buffer_to_binary (&kd->msg);
+}
+
+int
+_mongocrypt_key_handle_bytes_needed (mongocrypt_key_decryptor_t *kd,
+                                       uint32_t max_bytes)
+{
+   /* TODO test, change to assert later */
+   if (!kd) {
+      return 0;
+   }
+   return kms_response_parser_wants_bytes (kd->parser, (int32_t) max_bytes);
+}
+
+bool
+_mongocrypt_key_handle_feed (mongocrypt_key_decryptor_t *kd,
+                               mongocrypt_binary_t *bytes)
+{
+   /* TODO: KMS error handling in CDRIVER-3000? */
+   kms_response_parser_feed (kd->parser, bytes->data, bytes->len);
+   return true;
+}
+
 void
-_mongocrypt_key_handler_cleanup (mongocrypt_key_decryptor_t *kd)
+_mongocrypt_key_handle_cleanup (mongocrypt_key_decryptor_t *kd)
 {
    if (!kd) {
       return;

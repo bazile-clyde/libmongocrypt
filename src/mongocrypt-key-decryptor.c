@@ -27,25 +27,13 @@ _mongocrypt_key_decryptor_init (mongocrypt_key_decryptor_t *kd,
                                 _mongocrypt_buffer_t *key_material,
                                 void *ctx)
 {
-   _mongocrypt_key_init (kd, key_material, ctx, NULL, MONGOCRYPT_DECRYPT);
+   _mongocrypt_key_handle_init (kd, key_material, ctx, NULL, MONGOCRYPT_DECRYPT);
 }
 
 mongocrypt_binary_t *
 mongocrypt_key_decryptor_msg (mongocrypt_key_decryptor_t *kd)
 {
-   /* TODO testing, remove? */
-   if (!kd) {
-      return NULL;
-   }
-
-   if (kd->msg.data) {
-      return _mongocrypt_buffer_to_binary (&kd->msg);
-   }
-
-   kd->msg.data = (uint8_t *) kms_request_get_signed (kd->req);
-   kd->msg.len = (uint32_t) strlen ((char *) kd->msg.data);
-   kd->msg.owned = true;
-   return _mongocrypt_buffer_to_binary (&kd->msg);
+   return _mongocrypt_key_handle_msg (kd);
 }
 
 
@@ -53,11 +41,7 @@ int
 mongocrypt_key_decryptor_bytes_needed (mongocrypt_key_decryptor_t *kd,
                                        uint32_t max_bytes)
 {
-   /* TODO test, change to assert later */
-   if (!kd) {
-      return 0;
-   }
-   return kms_response_parser_wants_bytes (kd->parser, (int32_t) max_bytes);
+   return _mongocrypt_key_handle_bytes_needed (kd, max_bytes);
 }
 
 
@@ -65,9 +49,7 @@ bool
 mongocrypt_key_decryptor_feed (mongocrypt_key_decryptor_t *kd,
                                mongocrypt_binary_t *bytes)
 {
-   /* TODO: KMS error handling in CDRIVER-3000? */
-   kms_response_parser_feed (kd->parser, bytes->data, bytes->len);
-   return true;
+   return _mongocrypt_key_handle_feed (kd, bytes);
 }
 
 mongocrypt_status_t *
@@ -81,5 +63,5 @@ mongocrypt_key_decryptor_status (mongocrypt_key_decryptor_t *kd)
 void
 _mongocrypt_key_decryptor_cleanup (mongocrypt_key_decryptor_t *kd)
 {
-   _mongocrypt_key_handler_cleanup(kd);
+   _mongocrypt_key_handle_cleanup(kd);
 }
