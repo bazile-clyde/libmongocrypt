@@ -81,15 +81,5 @@ mongocrypt_key_decryptor_status (mongocrypt_key_decryptor_t *kd)
 void
 _mongocrypt_key_decryptor_cleanup (mongocrypt_key_decryptor_t *kd)
 {
-   if (!kd) {
-      return;
-   }
-   if (kd->req) {
-      kms_request_destroy (kd->req);
-   }
-   if (kd->parser) {
-      kms_response_parser_destroy (kd->parser);
-   }
-   mongocrypt_status_destroy (kd->status);
-   _mongocrypt_buffer_cleanup (&kd->msg);
+   _mongocrypt_key_handler_cleanup(kd);
 }

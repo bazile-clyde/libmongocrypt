@@ -27,3 +27,9 @@ _mongocrypt_key_encryptor_init (mongocrypt_key_decryptor_t *kd,
 {
     _mongocrypt_key_init (kd, key_material, ctx, key_id, MONGOCRYPT_ENCRYPT);
 }
+
+void
+_mongocrypt_key_encryptor_cleanup (mongocrypt_key_decryptor_t *kd)
+{
+   _mongocrypt_key_handler_cleanup(kd);
+}

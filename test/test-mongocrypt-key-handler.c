@@ -15,7 +15,7 @@
  */
 
 #include <mongocrypt-key-decryptor-private.h>
-#include <mongocrypt-key-encryptor.h>
+#include <mongocrypt-key-encryptor-private.h>
 #include <regex.h>
 
 #include "test-mongocrypt.h"
@@ -25,7 +25,7 @@ _test_key_init (_mongocrypt_tester_t *tester)
 {
    mongocrypt_key_decryptor_t *key;
    _mongocrypt_buffer_t *key_material;
-   void *ctx;
+   void *ctx = NULL;
    char *request;
    regex_t regex;
 

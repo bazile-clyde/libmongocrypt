@@ -16,16 +16,13 @@
 
 #include "mongocrypt-key-decryptor.h"
 #include "mongocrypt-buffer-private.h"
-
-#define MONGOCRYPT_ENCRYPT 0
-#define MONGOCRYPT_DECRYPT 1
+#include "mongocrypt-compat.h"
 
 void
-_mongocrypt_key_init (mongocrypt_key_decryptor_t *kd,
+_mongocrypt_key_encryptor_init (mongocrypt_key_decryptor_t *kd,
                                 _mongocrypt_buffer_t *key_material,
-                                void *ctx,
                                 const char *key_id,
-                                int flag);
+                                void *ctx);
 
 void
-_mongocrypt_key_handler_cleanup (mongocrypt_key_decryptor_t *kd);
+_mongocrypt_key_encryptor_cleanup (mongocrypt_key_decryptor_t *kd);
