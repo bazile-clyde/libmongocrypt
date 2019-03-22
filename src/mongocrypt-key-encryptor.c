@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-#include "mongocrypt-buffer-private.h"
-#include "mongocrypt-compat.h"
 #include "mongocrypt-key-encryptor.h"
 
 void

@@ -14,12 +14,7 @@
  * limitations under the License.
  */
 
-#include "kms_message/kms_request_opt.h"
-
-#include "mongocrypt-binary-private.h"
-#include "mongocrypt-buffer-private.h"
 #include "mongocrypt-key-decryptor.h"
-#include "mongocrypt-key-decryptor-private.h"
 
 void
 _mongocrypt_key_decryptor_init (mongocrypt_key_decryptor_t *kd,
