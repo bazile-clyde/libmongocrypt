@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-#include "mongocrypt-key-decryptor.h"
 #include "mongocrypt-buffer-private.h"
 #include "mongocrypt-compat.h"
+#include "mongocrypt-key-encryptor.h"
 
 void
-_mongocrypt_key_encryptor_init (mongocrypt_key_decryptor_t *kd,
+_mongocrypt_key_encryptor_init (mongocrypt_key_encryptor_t *kd,
                                 _mongocrypt_buffer_t *key_material,
                                 const char *key_id,
                                 void *ctx)
@@ -28,33 +28,33 @@ _mongocrypt_key_encryptor_init (mongocrypt_key_decryptor_t *kd,
 }
 
 mongocrypt_binary_t *
-mongocrypt_key_encryptor_msg (mongocrypt_key_decryptor_t *kd)
+mongocrypt_key_encryptor_msg (mongocrypt_key_encryptor_t *kd)
 {
    return _mongocrypt_key_handle_msg (kd);
 }
 
 int
-mongocrypt_key_encryptor_bytes_needed (mongocrypt_key_decryptor_t *kd,
+mongocrypt_key_encryptor_bytes_needed (mongocrypt_key_encryptor_t *kd,
                                        uint32_t max_bytes)
 {
    return _mongocrypt_key_handle_bytes_needed (kd, max_bytes);
 }
 
 bool
-mongocrypt_key_encryptor_feed (mongocrypt_key_decryptor_t *kd,
+mongocrypt_key_encryptor_feed (mongocrypt_key_encryptor_t *kd,
                                mongocrypt_binary_t *bytes)
 {
    return _mongocrypt_key_handle_feed (kd, bytes);
 }
 
 mongocrypt_status_t *
-mongocrypt_key_encryptor_status (mongocrypt_key_decryptor_t *kd)
+mongocrypt_key_encryptor_status (mongocrypt_key_encryptor_t *kd)
 {
    return _mongocrypt_key_handle_status (kd);
 }
 
 void
-_mongocrypt_key_encryptor_cleanup (mongocrypt_key_decryptor_t *kd)
+_mongocrypt_key_encryptor_cleanup (mongocrypt_key_encryptor_t *kd)
 {
    _mongocrypt_key_handle_cleanup(kd);
 }

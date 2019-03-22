@@ -14,19 +14,27 @@
  * limitations under the License.
  */
 
-#include <mongocrypt-binary.h>
-#include <mongocrypt-key-decryptor.h>
+#include "mongocrypt-binary.h"
+#include "mongocrypt-status.h"
+#include "mongocrypt-key-handler-private.h"
 
+/* Represents a request/response parser for the encryptor of a key material. */
+typedef struct _mongocrypt_key_handler_t mongocrypt_key_encryptor_t;
+
+MONGOCRYPT_EXPORT
 mongocrypt_binary_t *
-mongocrypt_key_encryptor_msg (mongocrypt_key_decryptor_t *kd);
+mongocrypt_key_encryptor_msg (mongocrypt_key_encryptor_t *kd);
 
+MONGOCRYPT_EXPORT
 int
-mongocrypt_key_encryptor_bytes_needed (mongocrypt_key_decryptor_t *kd,
+mongocrypt_key_encryptor_bytes_needed (mongocrypt_key_encryptor_t *kd,
                                        uint32_t max_bytes);
 
+MONGOCRYPT_EXPORT
 bool
-mongocrypt_key_encryptor_feed (mongocrypt_key_decryptor_t *kd,
+mongocrypt_key_encryptor_feed (mongocrypt_key_encryptor_t *kd,
                                mongocrypt_binary_t *bytes);
 
+MONGOCRYPT_EXPORT
 mongocrypt_status_t *
-mongocrypt_key_encryptor_status (mongocrypt_key_decryptor_t *kd);
+mongocrypt_key_encryptor_status (mongocrypt_key_encryptor_t *kd);
