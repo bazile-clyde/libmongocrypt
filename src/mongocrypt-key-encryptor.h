@@ -15,6 +15,7 @@
  */
 
 #include "mongocrypt-binary.h"
+#include "mongocrypt-export.h"
 #include "mongocrypt-status.h"
 #include "mongocrypt-key-handler-private.h"
 
