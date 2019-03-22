@@ -164,18 +164,21 @@ _mongocrypt_tester_satisfy_key_broker (_mongocrypt_tester_t *tester,
    BSON_ASSERT (mongocrypt_key_decryptor_feed (key_decryptor, bin));
    mongocrypt_binary_destroy (bin);
    BSON_ASSERT (0 == mongocrypt_key_decryptor_bytes_needed (key_decryptor, 1));
-   BSON_ASSERT (mongocrypt_key_broker_add_decrypted_key (key_broker, key_decryptor));
+   BSON_ASSERT (
+      mongocrypt_key_broker_add_decrypted_key (key_broker, key_decryptor));
    BSON_ASSERT (!mongocrypt_key_broker_next_decryptor (key_broker));
 }
 
 
-mongocrypt_binary_t* _mongocrypt_tester_encrypted_doc (_mongocrypt_tester_t* tester) {
-   mongocrypt_t* crypt;
+mongocrypt_binary_t *
+_mongocrypt_tester_encrypted_doc (_mongocrypt_tester_t *tester)
+{
+   mongocrypt_t *crypt;
    mongocrypt_encryptor_t *encryptor;
    mongocrypt_status_t *status;
    mongocrypt_binary_t *tmp;
 
-   if (!_mongocrypt_buffer_empty(&tester->encrypted_doc)) {
+   if (!_mongocrypt_buffer_empty (&tester->encrypted_doc)) {
       return _mongocrypt_buffer_to_binary (&tester->encrypted_doc);
    }
 
@@ -184,7 +187,8 @@ mongocrypt_binary_t* _mongocrypt_tester_encrypted_doc (_mongocrypt_tester_t* tes
    ASSERT_OR_PRINT (crypt, status);
 
    encryptor = mongocrypt_encryptor_new (crypt);
-   _mongocrypt_tester_run_encryptor_to (tester, encryptor, MONGOCRYPT_ENCRYPTOR_STATE_ENCRYPTED);
+   _mongocrypt_tester_run_encryptor_to (
+      tester, encryptor, MONGOCRYPT_ENCRYPTOR_STATE_ENCRYPTED);
    tmp = mongocrypt_encryptor_encrypted_cmd (encryptor);
    _mongocrypt_buffer_copy_from_binary (&tester->encrypted_doc, tmp);
    mongocrypt_binary_destroy (tmp);

@@ -74,7 +74,7 @@ mongocrypt_new (const mongocrypt_opts_t *opts);
 
 MONGOCRYPT_EXPORT
 bool
-mongocrypt_status (mongocrypt_t *crypt, mongocrypt_status_t* out);
+mongocrypt_status (mongocrypt_t *crypt, mongocrypt_status_t *out);
 
 
 MONGOCRYPT_EXPORT
@@ -87,8 +87,10 @@ MONGOCRYPT_EXPORT
 key_handler_t*
 mongocrypt_create_data_key (mongocrypt_t* crypt);
 
-// TODO: now that the key_handler has been fed everything, return the key from "CiphertextBlob" in the KMS response
+// TODO: now that the key_handler has been fed everything, return the key from
+"CiphertextBlob" in the KMS response
 mongocrypt_binary_t*
-mongnocrypt_create_data_key_done (mongocrypt_t* crypt, key_handler_t* handler, mongocrypt_status_t* out);
+mongnocrypt_create_data_key_done (mongocrypt_t* crypt, key_handler_t* handler,
+mongocrypt_status_t* out);
 */
 #endif /* MONGOCRYPT_H */

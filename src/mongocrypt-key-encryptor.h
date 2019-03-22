@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-#include "mongocrypt-binary.h"
-#include "mongocrypt-export.h"
-#include "mongocrypt-status.h"
+#ifndef MONGOCRYPT_KEY_ENCRYPTOR_H
+#define MONGOCRYPT_KEY_ENCRYPTOR_H
+
 #include "mongocrypt-key-handler-private.h"
 
 /* Represents a request/response parser for the encryptor of a key material. */
@@ -39,3 +39,5 @@ mongocrypt_key_encryptor_feed (mongocrypt_key_encryptor_t *kd,
 MONGOCRYPT_EXPORT
 mongocrypt_status_t *
 mongocrypt_key_encryptor_status (mongocrypt_key_encryptor_t *kd);
+
+#endif /* MONGOCRYPT_KEY_ENCRYPTOR_H */

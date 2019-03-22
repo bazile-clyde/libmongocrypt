@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-#include "mongocrypt-key-decryptor.h"
-#include "mongocrypt-buffer-private.h"
-#include "mongocrypt-compat.h"
+#include "mongocrypt-key-encryptor.h"
 
 void
-_mongocrypt_key_encryptor_init (mongocrypt_key_decryptor_t *kd,
+_mongocrypt_key_encryptor_init (mongocrypt_key_encryptor_t *kd,
                                 _mongocrypt_buffer_t *key_material,
                                 const char *key_id,
                                 void *ctx);
 
 void
-_mongocrypt_key_encryptor_cleanup (mongocrypt_key_decryptor_t *kd);
+_mongocrypt_key_encryptor_cleanup (mongocrypt_key_encryptor_t *kd);

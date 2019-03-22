@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-#include "kms_message/kms_request_opt.h"
-
-#include "mongocrypt-key-decryptor.h"
-#include "mongocrypt-buffer-private.h"
-#include "mongocrypt-key-decryptor-private.h"
 #include "mongocrypt-binary-private.h"
+#include "mongocrypt-key-handler-private.h"
 
 void
-_mongocrypt_key_handle_init (mongocrypt_key_decryptor_t *kd,
-                                _mongocrypt_buffer_t *key_material,
-                                void *ctx,
-                                const char *key_id,
-                                int flag)
+_mongocrypt_key_handle_init (struct _mongocrypt_key_handler_t *kd,
+                             _mongocrypt_buffer_t *key_material,
+                             void *ctx,
+                             const char *key_id,
+                             int flag)
 {
    kms_request_opt_t *opt;
    /* create the KMS request. */
@@ -50,7 +46,7 @@ _mongocrypt_key_handle_init (mongocrypt_key_decryptor_t *kd,
 }
 
 mongocrypt_binary_t *
-_mongocrypt_key_handle_msg (mongocrypt_key_decryptor_t *kd)
+_mongocrypt_key_handle_msg (struct _mongocrypt_key_handler_t *kd)
 {
    /* TODO testing, remove? */
    if (!kd) {
@@ -68,8 +64,8 @@ _mongocrypt_key_handle_msg (mongocrypt_key_decryptor_t *kd)
 }
 
 int
-_mongocrypt_key_handle_bytes_needed (mongocrypt_key_decryptor_t *kd,
-                                       uint32_t max_bytes)
+_mongocrypt_key_handle_bytes_needed (struct _mongocrypt_key_handler_t *kd,
+                                     uint32_t max_bytes)
 {
    /* TODO test, change to assert later */
    if (!kd) {
@@ -79,8 +75,8 @@ _mongocrypt_key_handle_bytes_needed (mongocrypt_key_decryptor_t *kd,
 }
 
 bool
-_mongocrypt_key_handle_feed (mongocrypt_key_decryptor_t *kd,
-                               mongocrypt_binary_t *bytes)
+_mongocrypt_key_handle_feed (struct _mongocrypt_key_handler_t *kd,
+                             mongocrypt_binary_t *bytes)
 {
    /* TODO: KMS error handling in CDRIVER-3000? */
    kms_response_parser_feed (kd->parser, bytes->data, bytes->len);
@@ -88,7 +84,7 @@ _mongocrypt_key_handle_feed (mongocrypt_key_decryptor_t *kd,
 }
 
 mongocrypt_status_t *
-_mongocrypt_key_handle_status (mongocrypt_key_decryptor_t *kd)
+_mongocrypt_key_handle_status (struct _mongocrypt_key_handler_t *kd)
 {
    BSON_ASSERT (kd);
 
@@ -96,7 +92,7 @@ _mongocrypt_key_handle_status (mongocrypt_key_decryptor_t *kd)
 }
 
 void
-_mongocrypt_key_handle_cleanup (mongocrypt_key_decryptor_t *kd)
+_mongocrypt_key_handle_cleanup (struct _mongocrypt_key_handler_t *kd)
 {
    if (!kd) {
       return;

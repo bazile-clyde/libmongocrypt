@@ -22,7 +22,8 @@ _mongocrypt_key_encryptor_init (mongocrypt_key_encryptor_t *kd,
                                 const char *key_id,
                                 void *ctx)
 {
-    _mongocrypt_key_handle_init (kd, key_material, ctx, key_id, MONGOCRYPT_ENCRYPT);
+   _mongocrypt_key_handle_init (
+      kd, key_material, ctx, key_id, MONGOCRYPT_ENCRYPT);
 }
 
 mongocrypt_binary_t *
@@ -54,5 +55,5 @@ mongocrypt_key_encryptor_status (mongocrypt_key_encryptor_t *kd)
 void
 _mongocrypt_key_encryptor_cleanup (mongocrypt_key_encryptor_t *kd)
 {
-   _mongocrypt_key_handle_cleanup(kd);
+   _mongocrypt_key_handle_cleanup (kd);
 }

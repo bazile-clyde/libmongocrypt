@@ -17,9 +17,6 @@
 #ifndef MONGOCRYPT_KEY_DECRYPTOR_H
 #define MONGOCRYPT_KEY_DECRYPTOR_H
 
-#include "mongocrypt-binary.h"
-#include "mongocrypt-export.h"
-#include "mongocrypt-status.h"
 #include "mongocrypt-key-handler-private.h"
 
 /* Represents a request/response parser for the decryption of a key material. */

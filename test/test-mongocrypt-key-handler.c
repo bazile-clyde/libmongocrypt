@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-#include <mongocrypt-key-decryptor-private.h>
-#include <mongocrypt-key-encryptor-private.h>
+#include <mongocrypt-key-handler-private.h>
 #include <regex.h>
 
 #include "test-mongocrypt.h"
@@ -31,27 +30,33 @@ _test_key_init (_mongocrypt_tester_t *tester)
 
    key = bson_malloc0 (sizeof (*key));
    key_material = bson_malloc0 (sizeof (*key_material));
-   
-   _mongocrypt_key_decryptor_init (key, key_material, ctx);
-   request = kms_request_get_canonical(key->req);
 
-    BSON_ASSERT (0 == regcomp(&regex, "x-amz-target[\\s]*:[\\s]*trentservice.DECRYPT", REG_ICASE));
-    BSON_ASSERT (0 == regexec (&regex, request, 0, NULL, 0));
+   _mongocrypt_key_handle_init (
+      key, key_material, ctx, NULL, MONGOCRYPT_DECRYPT);
+   request = kms_request_get_canonical (key->req);
 
-    _mongocrypt_key_decryptor_cleanup (key);
-    _mongocrypt_buffer_cleanup (key_material);
+   BSON_ASSERT (0 == regcomp (&regex,
+                              "x-amz-target[\\s]*:[\\s]*trentservice.DECRYPT",
+                              REG_ICASE));
+   BSON_ASSERT (0 == regexec (&regex, request, 0, NULL, 0));
+
+   _mongocrypt_key_decryptor_cleanup (key);
+   _mongocrypt_buffer_cleanup (key_material);
 
    key = bson_malloc0 (sizeof (*key));
    key_material = bson_malloc0 (sizeof (*key_material));
-   
-   _mongocrypt_key_encryptor_init (key, key_material, "alias/1", ctx);
-   request = kms_request_get_canonical(key->req);
 
-    BSON_ASSERT (0 == regcomp(&regex, "x-amz-target[\\s]*:[\\s]*trentservice.ENCRYPT", REG_ICASE));
-    BSON_ASSERT (0 == regexec (&regex, request, 0, NULL, 0));
+   _mongocrypt_key_handle_init (
+      key, key_material, ctx, "alias/1", MONGOCRYPT_ENCRYPT);
+   request = kms_request_get_canonical (key->req);
 
-    _mongocrypt_key_decryptor_cleanup (key);
-    _mongocrypt_buffer_cleanup (key_material);
+   BSON_ASSERT (0 == regcomp (&regex,
+                              "x-amz-target[\\s]*:[\\s]*trentservice.ENCRYPT",
+                              REG_ICASE));
+   BSON_ASSERT (0 == regexec (&regex, request, 0, NULL, 0));
+
+   _mongocrypt_key_decryptor_cleanup (key);
+   _mongocrypt_buffer_cleanup (key_material);
 }
 
 void
