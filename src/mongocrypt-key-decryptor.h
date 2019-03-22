@@ -22,9 +22,10 @@
 #include "mongocrypt-opts.h"
 #include "mongocrypt-status.h"
 #include "mongocrypt-compat.h"
+#include "mongocrypt-key-handler-private.h"
 
 /* Represents a request/response parser for the decryption of a key material. */
-typedef struct _mongocrypt_key_decryptor_t mongocrypt_key_decryptor_t;
+typedef struct _mongocrypt_key_handler_t mongocrypt_key_decryptor_t;
 
 /* Return the HTTP message to send. TODO: should this indicate the URI endpoint?
  */

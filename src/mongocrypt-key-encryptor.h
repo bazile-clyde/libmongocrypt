@@ -27,3 +27,6 @@ mongocrypt_key_encryptor_bytes_needed (mongocrypt_key_decryptor_t *kd,
 bool
 mongocrypt_key_encryptor_feed (mongocrypt_key_decryptor_t *kd,
                                mongocrypt_binary_t *bytes);
+
+mongocrypt_status_t *
+mongocrypt_key_encryptor_status (mongocrypt_key_decryptor_t *kd);

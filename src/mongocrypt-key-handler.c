@@ -19,7 +19,6 @@
 #include "mongocrypt-key-decryptor.h"
 #include "mongocrypt-buffer-private.h"
 #include "mongocrypt-key-decryptor-private.h"
-#include "mongocrypt-key-handler-private.h"
 #include "mongocrypt-binary-private.h"
 
 void
@@ -86,6 +85,14 @@ _mongocrypt_key_handle_feed (mongocrypt_key_decryptor_t *kd,
    /* TODO: KMS error handling in CDRIVER-3000? */
    kms_response_parser_feed (kd->parser, bytes->data, bytes->len);
    return true;
+}
+
+mongocrypt_status_t *
+_mongocrypt_key_handle_status (mongocrypt_key_decryptor_t *kd)
+{
+   BSON_ASSERT (kd);
+
+   return kd->status;
 }
 
 void

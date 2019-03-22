@@ -14,28 +14,39 @@
  * limitations under the License.
  */
 
-#include "mongocrypt-key-decryptor.h"
 #include "mongocrypt-buffer-private.h"
+#include "kms_message/kms_decrypt_request.h"
 
 #define MONGOCRYPT_ENCRYPT 0
 #define MONGOCRYPT_DECRYPT 1
 
+struct _mongocrypt_key_handler_t {
+   kms_request_t *req;
+   kms_response_parser_t *parser;
+   mongocrypt_status_t *status;
+   _mongocrypt_buffer_t msg;
+   void *ctx;
+};
+
 void
-_mongocrypt_key_handle_init (mongocrypt_key_decryptor_t *kd,
+_mongocrypt_key_handle_init (struct _mongocrypt_key_handler_t *kd,
                                 _mongocrypt_buffer_t *key_material,
                                 void *ctx,
                                 const char *key_id,
                                 int flag);
 
 mongocrypt_binary_t *
-_mongocrypt_key_handle_msg (mongocrypt_key_decryptor_t *kd);
+_mongocrypt_key_handle_msg (struct _mongocrypt_key_handler_t *kd);
 
 int
-_mongocrypt_key_handle_bytes_needed (mongocrypt_key_decryptor_t *kd,
+_mongocrypt_key_handle_bytes_needed (struct _mongocrypt_key_handler_t *kd,
                                        uint32_t max_bytes);
 
 bool
-_mongocrypt_key_handle_feed (mongocrypt_key_decryptor_t *kd,
+_mongocrypt_key_handle_feed (struct _mongocrypt_key_handler_t *kd,
                                mongocrypt_binary_t *bytes);
 void
-_mongocrypt_key_handle_cleanup (mongocrypt_key_decryptor_t *kd);
+_mongocrypt_key_handle_cleanup (struct _mongocrypt_key_handler_t *kd);
+
+mongocrypt_status_t *
+_mongocrypt_key_handle_status (struct _mongocrypt_key_handler_t *kd);

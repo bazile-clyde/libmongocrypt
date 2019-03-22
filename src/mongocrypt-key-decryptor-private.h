@@ -19,15 +19,6 @@
 
 #include "mongocrypt-key-decryptor.h"
 #include "mongocrypt-buffer-private.h"
-#include "kms_message/kms_decrypt_request.h"
-
-struct _mongocrypt_key_decryptor_t {
-   kms_request_t *req;
-   kms_response_parser_t *parser;
-   mongocrypt_status_t *status;
-   _mongocrypt_buffer_t msg;
-   void *ctx;
-};
 
 void
 _mongocrypt_key_decryptor_init (mongocrypt_key_decryptor_t *kd,

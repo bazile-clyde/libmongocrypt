@@ -15,7 +15,6 @@
  */
 
 #include "mongocrypt-key-decryptor.h"
-#include "mongocrypt-key-handler-private.h"
 #include "mongocrypt-buffer-private.h"
 #include "mongocrypt-compat.h"
 
@@ -46,6 +45,12 @@ mongocrypt_key_encryptor_feed (mongocrypt_key_decryptor_t *kd,
                                mongocrypt_binary_t *bytes)
 {
    return _mongocrypt_key_handle_feed (kd, bytes);
+}
+
+mongocrypt_status_t *
+mongocrypt_key_encryptor_status (mongocrypt_key_decryptor_t *kd)
+{
+   return _mongocrypt_key_handle_status (kd);
 }
 
 void
